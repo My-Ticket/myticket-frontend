@@ -1,1 +1,0 @@
-# myticket-frontend
