@@ -11,7 +11,8 @@ import {
 } from '@mantine/core'
 
 import {useState, useEffect} from 'react'
-import registerService from '../services/register'
+import { loginUser, registerUser } from '../services/auth'
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
 
@@ -44,29 +45,32 @@ const useStyles = createStyles((theme) => ({
 const EMAIL_VALIDATE = /^[a-zA-Z0-9._%+-]+@gmail\.com$/
 const PASSWORD_VALIDATE = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ]{8,24}$/
 
-export const Register = () => {
+export const Auth = ({ register }: { register: boolean}) => {
   const { classes } = useStyles()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [matchPassword, setMatchPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [validEmail, setValidEmail] = useState(false)
   const [validPassword, setValidPassword] = useState(false)
-  const [validMatchPassword, setValidMatchPassword] = useState(false)
-  const [error, setError] = useState('')
-  const [isRegistred, setIsRegistred] = useState(false)
+  const [validConfirmPassword, setValidConfirmPassword] = useState(false)
+  const navigate = useNavigate()
+  // TODO: Make error visible
+  const [_, setError] = useState('')
 
   useEffect (() => {
     setValidEmail(EMAIL_VALIDATE.test(email))
   },[email])
 
   useEffect(() => {
-    setValidPassword(PASSWORD_VALIDATE.test(password))
-    setValidMatchPassword(password === matchPassword)
-  },[password, matchPassword])
+    if (register) {
+      setValidPassword(PASSWORD_VALIDATE.test(password))
+      setValidConfirmPassword(password === confirmPassword)
+    }
+  },[password, confirmPassword])
 
   useEffect(() => {
     setError('')
-  },[email,password,matchPassword])
+  },[email,password,confirmPassword])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -76,23 +80,20 @@ export const Register = () => {
     }
 
     try {
-      const register = await registerService.register({email, password})
-      setIsRegistred(true)
-      setEmail('')
-      setPassword('')
-      setMatchPassword('')
-      console.log(register)
+      if (register) {
+        await registerUser({email, password})
+      }
+      if (!register) {
+        await loginUser({email, password, rememberMe: true})
+      }
+        setConfirmPassword('')
+        setPassword('')
+        setEmail('')
     } catch (e) {
-      /*if (!e?.response) {
-        setError('No Server Response');
-      } else if (err.response?.status === 409) {
-        setError('Username Taken');
-      } else {
-        setError('Registration Failed')
-      }*/
+    }
+      // TODO: Proper handle register error
       setError('Registration Failed')
     }
-  }
 
   return (
     <div className={classes.wrapper}>
@@ -103,17 +104,28 @@ export const Register = () => {
         <form onSubmit={handleSubmit}>
           <TextInput label="Correo electrónico" placeholder="hola@gmail.com" size="md" value={email} onChange={(e) => setEmail(e.target.value)} />
           <PasswordInput label="Contraseña" placeholder="Tu contraseña" mt="md" size="md" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <PasswordInput label="Confirmar contraseña" placeholder="Tu contraseña" mt="md" size="md" aria-invalid={!validMatchPassword ? true : false}
-            value={matchPassword} onChange={(e) => setMatchPassword(e.target.value)} />
-          <Button className='login' fullWidth mt="xl" size="md" disabled={!validEmail || !validPassword || !validMatchPassword ? true : false} onClick={handleSubmit}>
+          {register ?
+            <PasswordInput label="Confirmar contraseña" placeholder="Tu contraseña" mt="md" size="md" aria-invalid={!validConfirmPassword ? true : false}
+            value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            : null
+          }
+          <Button className='login' fullWidth mt="xl" size="md" disabled={!validEmail || !validPassword || !validConfirmPassword ? true : false} onClick={handleSubmit}>
             Registrarse
           </Button>
         </form>
 
         <Text ta="center" mt="md">
-          Ya tienes una cuenta?{' '}
-          <Anchor<'a'> href="login" weight={700} >
-            Inicia sesión aquí
+          {register ? "Ya tienes una cuenta? " : "No tienes una cuenta? "}
+          <Anchor weight={700} 
+            onClick={() => {
+              if (register) {
+                navigate("/login")
+              } else {
+               navigate("/register")
+              }
+            }}
+          >
+            {register ? "Inicia sesión aquí" : "Registrate"}
           </Anchor>
         </Text>
       </Paper>
