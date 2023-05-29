@@ -8,7 +8,8 @@ export const Layout: React.FC = () => {
       padding="md"
       header={<HeaderTabsColored user={HeaderData.user} tabs={HeaderData.tabs}/>}
       styles={(theme) => ({
-        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },
+        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0], padding: 100 },
+        
       })}
     >
     <Outlet/>

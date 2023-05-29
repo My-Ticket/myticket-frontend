@@ -32,7 +32,6 @@ const useStyles = createStyles((theme) => ({
     borderBottom: `${rem(1)} solid ${
       theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background
     }`,
-    marginBottom: rem(120),
   },
 
   mainSection: {
@@ -218,5 +217,6 @@ export const HeaderData: HeaderTabsProps = {
   },
   tabs: [
     {name: "Home", path: "/"},
+    {name: "Billboard", path: "/Billboard"}
   ]
 }
