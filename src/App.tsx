@@ -3,6 +3,7 @@ import { Layout } from './screens/Layout'
 import { Auth } from './screens/Auth'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Billboard from './screens/Billboard'
+import { Reservation } from './screens/Reservation'
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/cartelera",
         element: <Billboard/>
+      },
+      {
+        path: "/reserva",
+        element: <Reservation/>
       }
     ]
   },
