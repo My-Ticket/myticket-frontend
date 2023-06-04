@@ -28,9 +28,9 @@ import { useNavigate } from 'react-router-dom';
 const useStyles = createStyles((theme) => ({
   header: {
     paddingTop: theme.spacing.sm,
-    backgroundColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background,
+    backgroundColor: theme.fn.variant({ variant: 'filled', color: 'yellow' }).background,
     borderBottom: `${rem(1)} solid ${
-      theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background
+      theme.fn.variant({ variant: 'filled', color: 'black' }).background
     }`,
   },
 
@@ -46,7 +46,7 @@ const useStyles = createStyles((theme) => ({
 
     '&:hover': {
       backgroundColor: theme.fn.lighten(
-        theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background!,
+        theme.fn.variant({ variant: 'filled', color: 'black' }).background!,
         0.1
       ),
     },
@@ -64,7 +64,7 @@ const useStyles = createStyles((theme) => ({
 
   userActive: {
     backgroundColor: theme.fn.lighten(
-      theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background!,
+      theme.fn.variant({ variant: 'filled', color: 'black' }).background!,
       0.1
     ),
   },
@@ -84,21 +84,21 @@ const useStyles = createStyles((theme) => ({
     height: rem(38),
     color: theme.white,
     backgroundColor: 'transparent',
-    borderColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background,
+    borderColor: theme.fn.variant({ variant: 'filled', color: 'black' }).background,
 
     '&:hover': {
       backgroundColor: theme.fn.lighten(
-        theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background!,
+        theme.fn.variant({ variant: 'filled', color: 'black' }).background!,
         0.1
       ),
     },
 
     '&[data-active]': {
       backgroundColor: theme.fn.lighten(
-        theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background!,
+        theme.fn.variant({ variant: 'filled', color: 'black' }).background!,
         0.1
       ),
-      borderColor: theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background,
+      borderColor: theme.fn.variant({ variant: 'filled', color: 'black' }).background,
     },
   },
 }));
@@ -217,6 +217,6 @@ export const HeaderData: HeaderTabsProps = {
   },
   tabs: [
     {name: "Home", path: "/"},
-    {name: "Billboard", path: "/Billboard"}
+    {name: "Cartelera", path: "/cartelera"},
   ]
 }
