@@ -21,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/reserva",
         element: <Reservation/>
+      },
+      {
+        path: "/billboard",
+        element: <div>Texto</div>
       }
     ]
   },
