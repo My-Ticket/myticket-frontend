@@ -3,18 +3,16 @@ import Autoplay from 'embla-carousel-autoplay';
 import { useRef } from 'react';
 
 export function Caro() {
-  const autoplay = useRef(Autoplay({ delay: 5000}))
+  const autoplay = useRef(Autoplay({ delay: 3000}))
   console.log('cualuqier cosa')
 
   return (
     <Carousel 
       sx={{flex:1}}
       mx="auto"
-      height='60vh'
+      height='40em'
       draggable={false}
       plugins={[autoplay.current]}
-      onMouseEnter={autoplay.current.stop}
-      onMouseLeave={autoplay.current.reset}
     >
       <Carousel.Slide>
         <img

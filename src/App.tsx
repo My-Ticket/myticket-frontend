@@ -2,8 +2,10 @@ import { Home } from './screens/Home'
 import { Layout } from './screens/Layout'
 import { Auth } from './screens/Auth'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Billboard from './screens/Billboard'
+import Billboard from './screens/Cartelera'
 import { Reservation } from './screens/Reservation'
+import Estreno from './screens/Estrenos'
+import { NotFoundImage } from './screens/NotFound'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/reserva",
         element: <Reservation/>
+      },
+      {
+        path: "/estrenos",
+        element: <Estreno/>
       }
     ]
   },
@@ -31,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Auth register={true}/> 
+  },
+  {
+    path: "*",
+    element: <NotFoundImage/>
   }
 ])
 

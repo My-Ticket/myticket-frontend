@@ -8,7 +8,8 @@ import {
   SimpleGrid,
   rem,
 } from '@mantine/core';
-import image from './image.svg';
+import image from "../assets/404image.svg";
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -48,22 +49,24 @@ const useStyles = createStyles((theme) => ({
 
 export function NotFoundImage() {
   const { classes } = useStyles();
-
+  const navigate = useNavigate();
   return (
     <Container className={classes.root}>
       <SimpleGrid spacing={80} cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1, spacing: 40 }]}>
-        <Image src={image.src} className={classes.mobileImage} />
+        <Image src={image} className={classes.mobileImage} />
         <div>
-          <Title className={classes.title}>Something is not right...</Title>
+          <Title className={classes.title}>Algo no está bien...</Title>
           <Text color="dimmed" size="lg">
-            Page you are trying to open does not exist. You may have mistyped the address, or the
-            page has been moved to another URL. If you think this is an error contact support.
+          La página que intenta abrir no existe. Es posible que haya escrito mal la dirección o que la página se haya movido a otra URL.
+          Si cree que se trata de un error, póngase en contacto con el soporte.
           </Text>
-          <Button variant="outline" size="md" mt="xl" className={classes.control}>
-            Get back to home page
+          <Button variant="outline" size="md" mt="xl" className={classes.control} onClick={() => {
+            navigate('/');
+          }}>
+            Volver a la página principal
           </Button>
         </div>
-        <Image src={image.src} className={classes.desktopImage} />
+        <Image src={image} className={classes.desktopImage} />
       </SimpleGrid>
     </Container>
   );

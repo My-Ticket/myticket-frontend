@@ -1,6 +1,6 @@
 import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
 
-export function Moca({title,link}: {title:string, link:string}) {
+export function Moca({title,link, presale=false}: {title:string, link:string, presale?: boolean}) {
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder >
       <Card.Section>
@@ -13,9 +13,12 @@ export function Moca({title,link}: {title:string, link:string}) {
 
       <Group position="apart" mt="md" mb="xs">
         <Text weight={500}>{title}</Text>
+        {presale ? 
         <Badge color="pink" variant="light">
           Pre-Venta
         </Badge>
+        : null
+        }
       </Group>
 
       <Text size="sm" color="dimmed">

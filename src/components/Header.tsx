@@ -1,222 +1,155 @@
-import { useState } from 'react';
-import {
-  createStyles,
-  Container,
-  Avatar,
-  UnstyledButton,
-  Group,
-  Text,
-  Menu,
-  Tabs,
-  Burger,
-  rem,
-} from '@mantine/core';
+import { createStyles, Header, Menu, Group, Center, Burger, Container, rem, ThemeIcon } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import {
-  IconLogout,
-  IconHeart,
-  IconStar,
-  IconMessage,
-  IconSettings,
-  IconPlayerPause,
-  IconTrash,
-  IconSwitchHorizontal,
-  IconChevronDown,
-} from '@tabler/icons-react';
+import { IconChevronDown, IconSun } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   header: {
-    paddingTop: theme.spacing.sm,
     backgroundColor: theme.fn.variant({ variant: 'filled', color: 'yellow' }).background,
-    borderBottom: `${rem(1)} solid ${
-      theme.fn.variant({ variant: 'filled', color: 'black' }).background
-    }`,
+    borderBottom: 0,
   },
 
-  mainSection: {
-    paddingBottom: theme.spacing.sm,
+  inner: {
+    height: rem(56),
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
-  user: {
-    color: theme.white,
-    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
-    borderRadius: theme.radius.sm,
-    transition: 'background-color 100ms ease',
-
-    '&:hover': {
-      backgroundColor: theme.fn.lighten(
-        theme.fn.variant({ variant: 'filled', color: 'black' }).background!,
-        0.1
-      ),
-    },
-
-    [theme.fn.smallerThan('xs')]: {
-      display: 'none',
-    },
-  },
-
-  burger: {
-    [theme.fn.largerThan('xs')]: {
-      display: 'none',
-    },
-  },
-
-  userActive: {
-    backgroundColor: theme.fn.lighten(
-      theme.fn.variant({ variant: 'filled', color: 'black' }).background!,
-      0.1
-    ),
-  },
-
-  tabs: {
+  links: {
     [theme.fn.smallerThan('sm')]: {
       display: 'none',
     },
   },
 
-  tabsList: {
-    borderBottom: '0 !important',
+  burger: {
+    [theme.fn.largerThan('sm')]: {
+      display: 'none',
+    },
   },
 
-  tab: {
-    fontWeight: 500,
-    height: rem(38),
+  link: {
+    display: 'block',
+    lineHeight: 1,
+    padding: `${rem(8)} ${rem(12)}`,
+    borderRadius: theme.radius.sm,
+    textDecoration: 'none',
     color: theme.white,
-    backgroundColor: 'transparent',
-    borderColor: theme.fn.variant({ variant: 'filled', color: 'black' }).background,
+    fontSize: theme.fontSizes.sm,
+    fontWeight: 500,
 
     '&:hover': {
       backgroundColor: theme.fn.lighten(
-        theme.fn.variant({ variant: 'filled', color: 'black' }).background!,
+        theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background!,
         0.1
       ),
     },
+  },
 
-    '&[data-active]': {
-      backgroundColor: theme.fn.lighten(
-        theme.fn.variant({ variant: 'filled', color: 'black' }).background!,
-        0.1
-      ),
-      borderColor: theme.fn.variant({ variant: 'filled', color: 'black' }).background,
-    },
+  linkLabel: {
+    marginRight: rem(5),
   },
 }));
 
-interface HeaderTabsProps {
-  user: { name: string; image: string, email: string };
-  tabs: {name: string, path: string}[];
+interface HeaderSearchProps {
+  links: { link: string; label: string; links: { link: string; label: string }[] }[];
 }
 
-export function HeaderTabsColored({ user, tabs }: HeaderTabsProps) {
-  const { classes, theme, cx } = useStyles();
+export function HeaderMenuColored({ links }: HeaderSearchProps) {
   const [opened, { toggle }] = useDisclosure(false);
-  const [userMenuOpened, setUserMenuOpened] = useState(false);
-  const navigate = useNavigate()
-  const items = tabs.map((tab) => (
-    <Tabs.Tab value={tab.name} key={tab.name} onClick={() => navigate(tab.path)}>
-      {tab.name}
-    </Tabs.Tab>
-  ));
+  const { classes } = useStyles();
+  const navigate = useNavigate();
+  const items = links.map((link) => {
+    const menuItems = link.links?.map((item) => (
+      <Menu.Item key={item.link} onClick={() => navigate(item.link)}>{item.label} </Menu.Item>
+    ));
+
+    if (menuItems) {
+      return (
+        <Menu key={link.label} trigger="hover" transitionProps={{ exitDuration: 0 }} withinPortal>
+          <Menu.Target>
+            <a
+              href={link.link}
+              className={classes.link}
+              onClick={(event) => event.preventDefault()}
+            >
+              <Center>
+                <span className={classes.linkLabel}>{link.label}</span>
+                <IconChevronDown size="0.9rem" stroke={1.5} />
+              </Center>
+            </a>
+          </Menu.Target>
+          <Menu.Dropdown>{menuItems}</Menu.Dropdown>
+        </Menu>
+      );
+    }
+
+    return (
+      <a
+        key={link.label}
+        href={link.link}
+        className={classes.link}
+        onClick={() => navigate(link.link)}
+      >
+        {link.label}
+      </a>
+    );
+  });
 
   return (
-    <div className={classes.header}>
-      <Container className={classes.mainSection}>
-        <Group position="apart">
-
+    <Header height={56} className={classes.header} mb={120}>
+      <Container>
+        <div className={classes.inner}>
+          <ThemeIcon>
+            <IconSun size={28}/>
+          </ThemeIcon>
+          <Group spacing={5} className={classes.links}>
+            {items}
+          </Group>
           <Burger
             opened={opened}
             onClick={toggle}
             className={classes.burger}
             size="sm"
-            color={theme.white}
+            color="#fff"
           />
-
-          <Menu
-            width={260}
-            position="bottom-end"
-            transitionProps={{ transition: 'pop-top-right' }}
-            onClose={() => setUserMenuOpened(false)}
-            onOpen={() => setUserMenuOpened(true)}
-            withinPortal
-          >
-            <Menu.Target>
-              <UnstyledButton
-                className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
-              >
-                <Group spacing={7}>
-                  <Avatar src={user.image} alt={user.name} radius="xl" size={20} />
-                  <Text weight={500} size="sm" sx={{ lineHeight: 1, color: theme.white }} mr={3}>
-                    {user.name}
-                  </Text>
-                  <IconChevronDown size={rem(12)} stroke={1.5} />
-                </Group>
-              </UnstyledButton>
-            </Menu.Target>
-            <Menu.Dropdown>
-              <Menu.Item
-                icon={<IconHeart size="0.9rem" stroke={1.5} color={theme.colors.red[6]} />}
-              >
-                Liked posts
-              </Menu.Item>
-              <Menu.Item
-                icon={<IconStar size="0.9rem" stroke={1.5} color={theme.colors.yellow[6]} />}
-              >
-                Saved posts
-              </Menu.Item>
-              <Menu.Item
-                icon={<IconMessage size="0.9rem" stroke={1.5} color={theme.colors.blue[6]} />}
-              >
-                Your comments
-              </Menu.Item>
-
-              <Menu.Label>Settings</Menu.Label>
-              <Menu.Item icon={<IconSettings size="0.9rem" stroke={1.5} />}>
-                Account settings
-              </Menu.Item>
-              <Menu.Item icon={<IconSwitchHorizontal size="0.9rem" stroke={1.5} />}>
-                Change account
-              </Menu.Item>
-              <Menu.Item icon={<IconLogout size="0.9rem" stroke={1.5} />}>Logout</Menu.Item>
-
-              <Menu.Divider />
-
-              <Menu.Label>Danger zone</Menu.Label>
-              <Menu.Item icon={<IconPlayerPause size="0.9rem" stroke={1.5} />}>
-                Pause subscription
-              </Menu.Item>
-              <Menu.Item color="red" icon={<IconTrash size="0.9rem" stroke={1.5} />}>
-                Delete account
-              </Menu.Item>
-            </Menu.Dropdown>
-          </Menu>
-        </Group>
+        </div>
       </Container>
-      <Container>
-        <Tabs
-          defaultValue="Home"
-          variant="outline"
-          classNames={{
-            root: classes.tabs,
-            tabsList: classes.tabsList,
-            tab: classes.tab,
-          }}
-        >
-          <Tabs.List>{items}</Tabs.List>
-        </Tabs>
-      </Container>
-    </div>
+    </Header>
   );
 }
 
-export const HeaderData: HeaderTabsProps = {
-  user: {
-    "name": "Jane Spoonfighter",
-    "email": "janspoon@fighter.dev",
-    "image": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-  },
-  tabs: [
-    {name: "Home", path: "/"},
-    {name: "Cartelera", path: "/cartelera"},
+export const HeaderLinks = {
+  "links": [
+    {
+      "link": "/Home",
+      "label": "Home"
+    },
+    {
+      "link": "/Cartelera",
+      "label": "Cartelera"
+    },
+    {
+      "link": "/Estrenos",
+      "label": "Estrenos"
+    },
+    {
+      "link": "#2",
+      "label": "Support",
+      "links": [
+        {
+          "link": "/faq",
+          "label": "FAQ"
+        },
+        {
+          "link": "/demo",
+          "label": "Book a demo"
+        },
+        {
+          "link": "/forums",
+          "label": "Forums"
+        }
+      ]
+    }
   ]
 }
