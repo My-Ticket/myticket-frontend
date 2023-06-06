@@ -61,7 +61,7 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
   const navigate = useNavigate();
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link} onClick={() => navigate(item.link)}>{item.label} </Menu.Item>
+      <Menu.Item color='yellow' key={item.link} onClick={() => navigate(item.link)}>{item.label} </Menu.Item>
     ));
 
     if (menuItems) {
@@ -100,7 +100,7 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
     <Header height={56} className={classes.header} mb={120}>
       <Container>
         <div className={classes.inner}>
-          <ThemeIcon>
+          <ThemeIcon color='yellow'>
             <IconSun size={28}/>
           </ThemeIcon>
           <Group spacing={5} className={classes.links}>
