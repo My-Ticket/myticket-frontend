@@ -3,8 +3,11 @@ import {
   Rating,
   Button
 } from '@mantine/core'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../reserva.css'
+import { notifications } from '@mantine/notifications'
+import { pay, reserve } from '../services/pay'
+import { ConfirmationModal } from '../components/ConfirmationModal'
 
 
 export const Reservation = () => {
@@ -12,6 +15,10 @@ export const Reservation = () => {
   const [boletos,setBoletos] = useState(0)
   const [sillas, setSillas] = useState(false)
   const rating = 3.5
+  const [error, setError] = useState('')
+  const [total, setTotal] = useState(0)
+  const [open, setOpen] = useState(false)
+  const [confirmed, setConfirmed] = useState(false)
   
   const Pelicula = {
     title: 'Rapidos y Furiosos X',
@@ -21,6 +28,41 @@ export const Reservation = () => {
     poster: 'https://i.pinimg.com/originals/6e/71/52/6e7152aca33cfb764f8357dc6497e5bf.jpg',
     
   }
+  
+  useEffect(() => {
+    setTotal(boletos * precio)
+  },[boletos])
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    const err = reserve({
+      titulo: Pelicula.title,
+      boletos: boletos,
+      total: total,
+      sillas: sillas,
+    })
+    // if (err) {
+    //   notifications.show({
+    //     color: "red",
+    //     title: "Error",
+    //     message: "No se pudo realizar la reserva",
+    //   })
+    // } else {
+    //   notifications.show({
+    //     color: "green",
+    //     title: "Confirmación",
+    //     message: "Reserva realizada con éxito",
+    //   })
+    setOpen(true)
+  }
+
+  const handleCloseConfirm = () => {
+    setOpen(false)
+    setBoletos(0)
+    setSillas(false)
+    setTotal(0)
+    setConfirmed(false)
+  } 
   return (
     <div className='main'>
       <div className= 'poster'>
@@ -56,7 +98,7 @@ export const Reservation = () => {
         </div>
         <div>
           <h2>Total</h2>
-          $ {boletos * precio}
+          $ {total}
         </div>
         <div className='boton'>
           <Button variant='filled' color='yellow' size='md' 
@@ -68,12 +110,18 @@ export const Reservation = () => {
           <Button variant='filled' color='yellow' size='lg'
             disabled = {boletos === 0 || sillas === false ? true : false}
             sx={{ '&[disabled]': { pointerEvents: 'all' } }}
-            onClick={(event) => event.preventDefault()}
+            onClick={handleSubmit}
           >
-           Reservar
+          Reservar
           </Button>
         </div>  
       </div>
+      <ConfirmationModal isOpen={open} confirmed={confirmed} onClose={handleCloseConfirm}
+       onConfirm={() => setConfirmed(true)}
+       details={{
+        titulo: Pelicula.title,
+        boletos: boletos,
+        total: total,}} />
     </div>
   )
 }

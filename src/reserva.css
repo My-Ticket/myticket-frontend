@@ -3,11 +3,12 @@
 }
 .main {
   display: grid;
-  background-color: #1E1E1E;
+  /* background-color: #1E1E1E; */
   color: white;
   gap: 50px;
   min-width: 590px;
   grid-template-columns: repeat(auto-fill, minmax(32rem, 1fr));
+  margin: 50px;
 }
 h1,h2,h3,h4,h5,h6,strong {
   color: #E8D740;
