@@ -1,54 +1,58 @@
-import { Home } from './screens/Home'
-import { Layout } from './screens/Layout'
-import { Auth } from './screens/Auth'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Billboard from './screens/Cartelera'
-import { Reservation } from './screens/Reservation'
-import Estreno from './screens/Estrenos'
-import { NotFoundImage } from './screens/NotFound'
+import { Home } from "./screens/Home";
+import { Layout } from "./screens/Layout";
+import { Auth } from "./screens/Auth";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import Billboard from "./screens/Cartelera";
+import { Reservation } from "./screens/Reservation";
+import Estreno from "./screens/Estrenos";
+import { NotFoundImage } from "./screens/NotFound";
+import Panel from "./admin/Panel";
+import { Children } from "react";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout/>,
+    element: <Layout />,
     children: [
       {
         path: "/",
-        element: <Home/>
+        element: <Home />,
       },
       {
         path: "/cartelera",
-        element: <Billboard/>
+        element: <Billboard />,
       },
       {
         path: "/reserva",
-        element: <Reservation/>
+        element: <Reservation />,
       },
       {
         path: "/estrenos",
-        element: <Estreno/>
-      }
-    ]
+        element: <Estreno />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <Panel />,
+    children: [],
   },
   {
     path: "/login",
-    element: <Auth register={false}/>
+    element: <Auth register={false} />,
   },
   {
     path: "/register",
-    element: <Auth register={true}/> 
+    element: <Auth register={true} />,
   },
   {
     path: "*",
-    element: <NotFoundImage/>
-  }
-])
+    element: <NotFoundImage />,
+  },
+]);
 
 function App() {
-
-  return (
-    <RouterProvider router={router}/>
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
