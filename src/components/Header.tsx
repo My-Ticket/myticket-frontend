@@ -134,6 +134,10 @@ export const HeaderLinks = {
       "label": "Estrenos"
     },
     {
+      "link": "/Historial",
+      "label": "Historial"
+    },
+    {
       "link": "#2",
       "label": "Support",
       "links": [
