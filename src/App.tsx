@@ -6,6 +6,8 @@ import Billboard from './screens/Cartelera'
 import { Reservation } from './screens/Reservation'
 import Estreno from './screens/Estrenos'
 import { NotFoundImage } from './screens/NotFound'
+import Panel from "./admin/Panel";
+import { Children } from "react";
 import { TableScrollArea } from './screens/History'
 
 
@@ -27,52 +29,55 @@ const historial = [
       {pelicula: "Avengers", fecha: "25/06/2023", boletos: "15", sala: "1"},
 
 ]
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout/>,
+    element: <Layout />,
     children: [
       {
         path: "/",
-        element: <Home/>
+        element: <Home />,
       },
       {
         path: "/cartelera",
-        element: <Billboard/>
+        element: <Billboard />,
       },
       {
         path: "/reserva",
-        element: <Reservation/>
+        element: <Reservation />,
       },
       {
         path: "/estrenos",
-        element: <Estreno/>
+        element: <Estreno/>,
       },
       {
         path: "/historial",
-        element: <TableScrollArea data={historial}/>
-      }
-    ]
+        element: <TableScrollArea data={historial} />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <Panel />,
+    children: [],
   },
   {
     path: "/login",
-    element: <Auth register={false}/>
+    element: <Auth register={false} />,
   },
   {
     path: "/register",
-    element: <Auth register={true}/> 
+    element: <Auth register={true} />,
   },
   {
     path: "*",
-    element: <NotFoundImage/>
-  }
-])
+    element: <NotFoundImage />,
+  },
+]);
 
 function App() {
-
-  return (
-    <RouterProvider router={router}/>
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
