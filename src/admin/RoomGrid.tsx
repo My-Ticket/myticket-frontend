@@ -25,12 +25,16 @@ function RoomGrid({ height, width }: RoomGridProps) {
 }
 
 function makeGrid(h: number, w: number) {
+  // letters from A to Z
+  const rowNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", 
+                    "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", 
+                    "V", "W", "X", "Y", "Z"];
   let grid = [];
   for (let i = 0; i < h; i++) {
     let row = [];
     for (let j = 0; j < w; j++) {
       row.push(
-        <ActionIcon size={"xl"} key={nanoid()}>
+        <ActionIcon size={"xl"} key={nanoid()} onClick={() => console.log(rowNames[i], j)}>
           <IconArmchair size="2.125rem" />
         </ActionIcon>
       );

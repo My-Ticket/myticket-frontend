@@ -7,7 +7,6 @@ import { Reservation } from "./screens/Reservation";
 import Estreno from "./screens/Estrenos";
 import { NotFoundImage } from "./screens/NotFound";
 import Panel from "./admin/Panel";
-import { Children } from "react";
 import { TableScrollArea } from "./screens/History";
 import Rooms from "./admin/Rooms";
 
