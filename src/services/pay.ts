@@ -1,15 +1,15 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { baseUrl } from "../constants";
 
 
 export async function reserve (reserveInfo: {
-  titulo: string
-  boletos: number
+  title: string
+  tickets: number
   total: number
-  sillas: boolean
+  seats: boolean
 }) {
   let err: any = undefined;
-  const res = await axios
+  await axios
     .post(`${baseUrl}/reserva`, reserveInfo)
     .catch((error) => {
       err = error
@@ -20,7 +20,7 @@ export async function reserve (reserveInfo: {
   }
 }
 
-export async function pay(paymentInfo: {
+export async function pay(_paymentInfo: {
   boletos: number
   total: number
 }) {

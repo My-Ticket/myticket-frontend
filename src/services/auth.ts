@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { baseUrl } from "../constants";
 
 export async function loginUser(credentials: {

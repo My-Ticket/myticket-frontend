@@ -4,42 +4,45 @@ import {
   Button
 } from '@mantine/core'
 import { useState, useEffect } from 'react'
-import '../reserva.css'
+import './Reservation.css'
 import { notifications } from '@mantine/notifications'
 import { pay, reserve } from '../services/pay'
 import { ConfirmationModal } from '../components/ConfirmationModal'
+import { useRecoilValue } from 'recoil'
+import { MoviesState } from '../state/reservationState'
 
+export interface Movie{
+  title: string,
+  classification: string,
+  director: string,
+  crew: string,
+  poster: string
+}
 
 export const Reservation = () => {
-  const precio = 15000
-  const [boletos,setBoletos] = useState(0)
-  const [sillas, setSillas] = useState(false)
+  const movie = useRecoilValue(MoviesState)
+  const price = 15000
+  const [boletos,setTickets] = useState(0)
+  const [seats, setSeats] = useState(false)
   const rating = 3.5
-  const [error, setError] = useState('')
+  // const [error, setError] = useState('')
   const [total, setTotal] = useState(0)
   const [open, setOpen] = useState(false)
   const [confirmed, setConfirmed] = useState(false)
   
-  const Pelicula = {
-    title: 'Rapidos y Furiosos X',
-    clasificacion: '+12',
-    director: 'Louis Leterrier',
-    reparto: 'Vin Diesel, Jason Momoa, Jason Statham, Michelle Rodriguez, Charlize Theron, Tyrese Gibson, Chris "Ludacris" Bridges, Jordana Brewster, John Cena, Nathalie Emmanuel, Sung Kang, Scott Eastwood, Cardi B, Daniela Melchior, Brie Larson, Alan Ritchson y Rita Moreno.',
-    poster: 'https://i.pinimg.com/originals/6e/71/52/6e7152aca33cfb764f8357dc6497e5bf.jpg',
-    
-  }
-  
   useEffect(() => {
-    setTotal(boletos * precio)
+    setTotal(boletos * price)
   },[boletos])
 
   const handleSubmit = async (e: any) => {
+    if (movie === undefined) return
     e.preventDefault()
+    // ?????
     const err = reserve({
-      titulo: Pelicula.title,
-      boletos: boletos,
+      title: movie.title,
+      tickets: boletos,
       total: total,
-      sillas: sillas,
+      seats: seats,
     })
     // if (err) {
     //   notifications.show({
@@ -58,39 +61,39 @@ export const Reservation = () => {
 
   const handleCloseConfirm = () => {
     setOpen(false)
-    setBoletos(0)
-    setSillas(false)
+    setTickets(0)
+    setSeats(false)
     setTotal(0)
     setConfirmed(false)
   } 
   return (
     <div className='main'>
       <div className= 'poster'>
-        <img  src={Pelicula.poster} alt="image"  />
+        <img  src={movie!.poster} alt="image"  />
         <Rating size='lg' value={rating} fractions={2} readOnly />
         <p>Calificación promedio: {rating}</p>
       </div>
       <div className='movie'>
         <div className= 'info'>
           <h1>Rapidos y Furiosos X</h1>
-          <p><strong>Titulo: </strong> {Pelicula.title}</p>
-          <p><strong>Clasificación: </strong> {Pelicula.clasificacion} </p>
-          <p><strong>Reparto: </strong> {Pelicula.reparto}</p>
-          <p><strong>Director: </strong> {Pelicula.director}</p>
+          <p><strong>Titulo: </strong> {movie!.title}</p>
+          <p><strong>Clasificación: </strong> {movie!.classification} </p>
+          <p><strong>Reparto: </strong> {movie!.crew}</p>
+          <p><strong>Director: </strong> {movie!.director}</p>
         </div>
       <div className='reserva' >
         <div>
           <h2>Precio</h2>
-          $ {precio}
+          $ {price}
         </div>
         <div>
           <h2>Boletos</h2>
           <p>
-            <ActionIcon variant='outline' size='md' color= 'yellow' onClick={() => boletos > 0 && setBoletos(boletos - 1)}>
+            <ActionIcon variant='outline' size='md' color= 'yellow' onClick={() => boletos > 0 && setTickets(boletos - 1)}>
               -
             </ActionIcon>
             {boletos}
-            <ActionIcon variant='outline' size='md' color='yellow' onClick={() => boletos < 10 && setBoletos(boletos + 1)}>
+            <ActionIcon variant='outline' size='md' color='yellow' onClick={() => boletos < 10 && setTickets(boletos + 1)}>
               +
             </ActionIcon>
           </p>
@@ -102,13 +105,13 @@ export const Reservation = () => {
         </div>
         <div className='boton'>
           <Button variant='filled' color='yellow' size='md' 
-            onClick={() => setSillas(!sillas)}>Seleccionar sillas
+            onClick={() => setSeats(!seats)}>Seleccionar sillas
           </Button>
         </div>
       </div>
         <div className='boton'>
           <Button variant='filled' color='yellow' size='lg'
-            disabled = {boletos === 0 || sillas === false ? true : false}
+            disabled = {boletos === 0 || seats === false ? true : false}
             sx={{ '&[disabled]': { pointerEvents: 'all' } }}
             onClick={handleSubmit}
           >
@@ -119,7 +122,7 @@ export const Reservation = () => {
       <ConfirmationModal isOpen={open} confirmed={confirmed} onClose={handleCloseConfirm}
        onConfirm={() => setConfirmed(true)}
        details={{
-        titulo: Pelicula.title,
+        titulo: movie!.title,
         boletos: boletos,
         total: total,}} />
     </div>

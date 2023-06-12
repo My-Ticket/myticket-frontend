@@ -1,8 +1,8 @@
 import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
 
-export function Moca({title,link, presale=false}: {title:string, link:string, presale?: boolean}) {
+export function Moca({title,link, presale=false, onReserveClick}: {title:string, link:string, presale?: boolean, onReserveClick?: () => void}) {
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder >
+    <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Card.Section>
         <Image
           src={link}
@@ -26,7 +26,7 @@ export function Moca({title,link, presale=false}: {title:string, link:string, pr
       Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
       </Text>
 
-      <Button  variant="outline" color="yellow" fullWidth mt="md" radius="md">
+      <Button  variant="outline" color="yellow" fullWidth mt="md" radius="md" onClick={onReserveClick}>
         Reservar
       </Button>
     </Card>
