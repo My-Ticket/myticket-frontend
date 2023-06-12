@@ -1,7 +1,13 @@
+import RoomGrid from "./RoomGrid"
 
 function Rooms() {
   return (
-    <div>Rooms</div>
+    <div style={{
+      minHeight: "100%",
+    }}>
+
+    <RoomGrid height={10} width={20} />  
+    </div>
   )
 }
 
