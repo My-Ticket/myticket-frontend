@@ -121,18 +121,14 @@ export const HeaderLinks = {
   "links": [
     {
       "link": "/",
-      "label": "Home"
-    },
-    {
-      "link": "/Cartelera",
       "label": "Cartelera"
     },
     {
-      "link": "/Estrenos",
+      "link": "/estrenos",
       "label": "Estrenos"
     },
     {
-      "link": "/Historial",
+      "link": "/historial",
       "label": "Historial"
     },
     {
