@@ -1,8 +1,8 @@
-import { createStyles, Header, Menu, Group, Center, Burger, Container, rem, ThemeIcon } from '@mantine/core';
+import { createStyles, Header, Menu, Group, Center, Burger, Container, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconChevronDown, IconSun } from '@tabler/icons-react';
+import { IconChevronDown } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
-
+import MyTicketLogo from "../assets/miticket.png"
 const useStyles = createStyles((theme) => ({
   header: {
     backgroundColor: theme.fn.variant({ variant: 'filled', color: 'yellow' }).background,
@@ -12,8 +12,8 @@ const useStyles = createStyles((theme) => ({
   inner: {
     height: rem(56),
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: 'left',
+    alignItems: "center",
   },
 
   links: {
@@ -40,7 +40,7 @@ const useStyles = createStyles((theme) => ({
 
     '&:hover': {
       backgroundColor: theme.fn.lighten(
-        theme.fn.variant({ variant: 'filled', color: theme.primaryColor }).background!,
+        theme.fn.variant({ variant: 'filled', color: "dark" }).background!,
         0.1
       ),
     },
@@ -100,9 +100,7 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
     <Header height={56} className={classes.header} mb={120}>
       <Container>
         <div className={classes.inner}>
-          <ThemeIcon color='yellow'>
-            <IconSun size={28}/>
-          </ThemeIcon>
+          <img src={MyTicketLogo} style={{paddingTop: '0rem', marginRight: "20rem"}}/>
           <Group spacing={5} className={classes.links}>
             {items}
           </Group>
@@ -122,7 +120,7 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
 export const HeaderLinks = {
   "links": [
     {
-      "link": "/Home",
+      "link": "/",
       "label": "Home"
     },
     {
@@ -139,19 +137,19 @@ export const HeaderLinks = {
     },
     {
       "link": "#2",
-      "label": "Support",
+      "label": "Perfil",
       "links": [
         {
-          "link": "/faq",
-          "label": "FAQ"
+          "link": "/1",
+          "label": "1"
         },
         {
-          "link": "/demo",
-          "label": "Book a demo"
+          "link": "/2",
+          "label": "2"
         },
         {
-          "link": "/forums",
-          "label": "Forums"
+          "link": "/3",
+          "label": "3"
         }
       ]
     }

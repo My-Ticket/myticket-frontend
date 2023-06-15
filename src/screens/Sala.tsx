@@ -1,4 +1,4 @@
-import { ActionIcon, SimpleGrid, ThemeIcon, UnstyledButton } from '@mantine/core';
+import { ActionIcon, SimpleGrid } from '@mantine/core';
 import { IconArmchair } from '@tabler/icons-react';
 
 

@@ -5,8 +5,8 @@ import {
 } from '@mantine/core'
 import { useState, useEffect } from 'react'
 import './Reservation.css'
-import { notifications } from '@mantine/notifications'
-import { pay, reserve } from '../services/pay'
+// import { notifications } from '@mantine/notifications'
+import {reserve } from '../services/pay'
 import { ConfirmationModal } from '../components/ConfirmationModal'
 import { useRecoilValue } from 'recoil'
 import { MoviesState } from '../state/reservationState'
@@ -16,7 +16,8 @@ export interface Movie{
   classification: string,
   director: string,
   crew: string,
-  poster: string
+  poster: string,
+  sinopsis: string
 }
 
 export const Reservation = () => {
@@ -38,7 +39,7 @@ export const Reservation = () => {
     if (movie === undefined) return
     e.preventDefault()
     // ?????
-    const err = reserve({
+    reserve({
       title: movie.title,
       tickets: boletos,
       total: total,

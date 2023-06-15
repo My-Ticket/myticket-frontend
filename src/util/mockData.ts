@@ -46,5 +46,15 @@ export const billBoardMockData: Movie[] = [
     crew: "Vin Diesel, Michelle Rodriguez, Tyrese Gibson",
     director: "Louis Leterrier",
     poster: "https://movies.universalpictures.com/media/fstx-montage1sheet2-rgb-1-64108e93e63dd-1.jpg",
-  }
+    sinopsis: "Doce años antes en Río de Janeiro, el mafioso y narcotraficante brasileño Hernán Reyes y su hijo sociópata llamado Dante Reyes están esperando que Dom y su equipo vayan a intentar robar todo su dinero guardado en la jefatura de policía. Su atraco a Brasil se dispara en las calles, con Dante persiguiéndolos junto a su padre, al llegar al puente donde Dom se quedó atrás para acabar con los autos policiales que los perseguían, usando la bóveda y también asegurar la muerte de Reyes, mientras Dante que estaba en el otro auto que le disparaba a Dom con una ametralladora es golpeado violentamente por la pesada bóveda de metal, la cual Dom usó como un poderoso martillo de acero y acaba arrojando el auto de Dante por el puente hacia el agua."
+  },
+  {
+    title: "Transformers",
+    classification: "13+",
+    crew: "Shia LaBeouf, Megan Fox, Josh Duhamel",
+    director: "Michael Bay",
+    poster: "https://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRL1XgVEINwK9ZkYMu2_3Sw_4RRp7p0WRSVM6mHwvbOR-e_Lc-qMM-o3XPGXRy3GDx4",
+    sinopsis: "Hace miles de años, el planeta Cybertron fue consumido por una guerra civil entre las dos facciones de Transformers: los Autobots, liderados por Optimus Prime; y los Decepticons, liderados por Megatron. Los Autobots quieren encontrar la \"Chispa Suprema\", la fuente de toda la vida de Cybertron, para poder usarla para reconstruir Cybertron y terminar la guerra entre los Autobots y los Decepticons, mientras que los Decepticons quieren usarla para derrotar a los Autobots y conquistar el universo. Megatron encontró la Chispa Suprema en la Tierra, pero se estrelló en el Círculo Polar Ártico y quedó congelado en el hielo"
+  },
+
 ]

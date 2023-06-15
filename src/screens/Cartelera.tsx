@@ -28,7 +28,7 @@ export function Billboard() {
               billBoardMockData.map((movie) => {
                 return (
                   <Grid.Col span={3}>
-                    <Moca title={movie.title} link={movie.poster}  onReserveClick ={() => {setReserveMovie(movie); navigate("/reserva")}}/>
+                    <Moca title={movie.title} link={movie.poster} sinopsis={movie.sinopsis}  onReserveClick ={() => {setReserveMovie(movie); navigate("/reserva")}}/>
                   </Grid.Col>
                 )
               })
