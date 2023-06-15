@@ -18,33 +18,15 @@ const mockdata = [
     icon: IconGauge,
   },
   {
-    title: "Privacy focused",
+    title: "Peliculas",
     description:
-      "People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma",
+      "Crea, edita y elimina peliculas",
     icon: IconUser,
   },
   {
-    title: "No third parties",
+    title: "Programacion",
     description:
-      "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
-    icon: IconCookie,
-  },
-  {
-    title: "No third parties",
-    description:
-      "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
-    icon: IconCookie,
-  },
-  {
-    title: "No third parties",
-    description:
-      "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
-    icon: IconCookie,
-  },
-  {
-    title: "No third parties",
-    description:
-      "They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves",
+      "Programa las peliculas en las salas",
     icon: IconCookie,
   },
 ];
@@ -120,7 +102,6 @@ export default function Panel() {
       </Title>
 
       <Text c="dimmed" className={classes.description} ta="center" mt="md">
-        Manage your tickets, reservations and more!
       </Text>
 
       <SimpleGrid

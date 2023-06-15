@@ -1,14 +1,16 @@
 import { ActionIcon, Button, Center, SimpleGrid } from "@mantine/core";
 import { IconArmchair } from "@tabler/icons-react";
 import { nanoid } from "nanoid";
-
+import { useState } from "react";
+import { Socket } from "socket.io-client";
 interface RoomGridProps {
   height: number;
   width: number;
 }
 
 function RoomGrid({ height, width }: RoomGridProps) {
-  const grid = makeGrid(height, width);
+
+  const [grid, setGrid] = useState(makeGrid(height, width));
 
   return (
     <Center>
@@ -24,7 +26,7 @@ function RoomGrid({ height, width }: RoomGridProps) {
   );
 }
 
-function makeGrid(h: number, w: number) {
+function makeGrid(h: number, w: number ) {
   // letters from A to Z
   const rowNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", 
                     "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", 
@@ -34,8 +36,8 @@ function makeGrid(h: number, w: number) {
     let row = [];
     for (let j = 0; j < w; j++) {
       row.push(
-        <ActionIcon size={"xl"} key={nanoid()} onClick={() => console.log(rowNames[i], j)}>
-          <IconArmchair size="2.125rem" />
+        <ActionIcon size={"xl"} key={nanoid()} onClick={() =>`${rowNames[i]}${j}`}  variant={"transparent"}>
+          <IconArmchair size="2.125rem" color={(i===8 || i===3) && (j ===10 || j===4) ? "red": undefined} />
         </ActionIcon>
       );
     }
