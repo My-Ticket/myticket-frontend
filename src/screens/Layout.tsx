@@ -7,7 +7,7 @@ export const Layout: React.FC = () => {
      <AppShell
       header={<HeaderMenuColored links={HeaderLinks.links as any}/>}
       styles={(theme) => ({
-        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0], padding: 0 },
+        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0], padding: 0, width: '100vw' },
         
       })}
     >

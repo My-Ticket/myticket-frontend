@@ -10,9 +10,9 @@ const useStyles = createStyles((theme) => ({
   },
 
   inner: {
-    height: rem(56),
+    height: "100%",
     display: 'flex',
-    justifyContent: 'left',
+    justifyContent: 'space-between',
     alignItems: "center",
   },
 

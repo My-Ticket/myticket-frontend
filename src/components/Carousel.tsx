@@ -13,6 +13,7 @@ export function Caro() {
       height='40em'
       draggable={false}
       plugins={[autoplay.current]}
+      withControls={false}
     >
       <Carousel.Slide>
         <img

@@ -1,4 +1,3 @@
-import { Home } from "./screens/Home";
 import { Layout } from "./screens/Layout";
 import { Auth } from "./screens/Auth";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -12,6 +11,7 @@ import Rooms from "./admin/Rooms";
 import { RecoilRoot } from "recoil";
 import Sala from "./screens/Sala";
 import { mockHistory } from "./util/mockData";
+import MoviesAdmin from "./screens/admin/MoviesAdmin";
 
 
 const router = createBrowserRouter([
@@ -49,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/admin/rooms",
     element: <Rooms />,
+  },
+  {
+    path: "/admin/movies/",
+    element: <MoviesAdmin />,
   },
   {
     path: "/login",

@@ -9,7 +9,7 @@ import {
   Anchor,
   rem,
 } from "@mantine/core";
-
+import { z } from "zod";
 import { useState, useEffect } from "react";
 import { loginUser, registerUser } from "../services/auth";
 import { useNavigate } from "react-router-dom";
@@ -42,9 +42,8 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const EMAIL_VALIDATE =
-  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-const PASSWORD_VALIDATE = /^[a-zA-Z0-9áéíóúñÁÉÍÓÚÑ]{4,24}$/;
+const EMAIL_VALIDATE = z.string().email();
+const PASSWORD_VALIDATE = z.string().min(4).max(24);
 
 export const Auth = ({ register }: { register: boolean }) => {
   const { classes } = useStyles();
@@ -61,11 +60,11 @@ export const Auth = ({ register }: { register: boolean }) => {
   const [_, setError] = useState("");
 
   useEffect(() => {
-    setValidEmail(EMAIL_VALIDATE.test(email));
+    setValidEmail(EMAIL_VALIDATE.safeParse(email).success);
   }, [email]);
 
   useEffect(() => {
-    setValidPassword(PASSWORD_VALIDATE.test(password));
+    setValidPassword(PASSWORD_VALIDATE.safeParse(password).success);
     setValidConfirmPassword(password === confirmPassword);
   }, [password, confirmPassword]);
 
