@@ -53,15 +53,12 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface ImageCardProps {
-  link: string;
   image: string;
   title: string;
-  author: string;
-  views: number;
-  comments: number;
+  onClick?: () => void;
 }
 
-export function AdminMovieComp({ image, title, link }: ImageCardProps) {
+export function AdminMovieComp({ image, title, onClick }: ImageCardProps) {
   const { classes } = useStyles();
 
   return (
@@ -71,8 +68,8 @@ export function AdminMovieComp({ image, title, link }: ImageCardProps) {
       className={classes.card}
       radius="md"
       component="a"
-      href={link}
       target="_blank"
+      onClick={onClick}
     >
       <div className={classes.image} style={{ backgroundImage: `url(${image})` }} />
       <div className={classes.overlay} />

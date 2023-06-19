@@ -1,7 +1,7 @@
 import { ActionIcon, Button, Center, SimpleGrid } from "@mantine/core";
 import { IconArmchair } from "@tabler/icons-react";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 interface RoomGridProps {
   height: number;
@@ -10,7 +10,15 @@ interface RoomGridProps {
 
 function RoomGrid({ height, width }: RoomGridProps) {
 
-  const [grid, setGrid] = useState(makeGrid(height, width));
+  const [grid, setGrid] = useState<JSX.Element[][]>([]);
+
+  useEffect(() => {
+    if (grid.length > 0) return;
+    const testGridState: SeatState[] = [];
+    testGridState[2] = {state: "hall"};
+    testGridState[199] = {state: "hall"};
+    setGrid(makeGrid(height, width, testGridState, setGrid))
+  }, [])
 
   return (
     <Center>
@@ -26,7 +34,14 @@ function RoomGrid({ height, width }: RoomGridProps) {
   );
 }
 
-function makeGrid(h: number, w: number ) {
+interface SeatState {
+  state: "free" | "reserved" | "selected" | "hall";
+} 
+
+
+function makeGrid(h: number, w: number, roomState: SeatState[], gridSetter: Function) {
+
+
   // letters from A to Z
   const rowNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", 
                     "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", 
@@ -35,9 +50,22 @@ function makeGrid(h: number, w: number ) {
   for (let i = 0; i < h; i++) {
     let row = [];
     for (let j = 0; j < w; j++) {
+      const {color, show= true} = (() => {
+        if (roomState.length === 0) return ({color: "white"});
+        switch(roomState[i*w + j]?.state || "free") {
+          case "free":
+            return {color: "white" };
+          case "reserved":
+            return {color: "yellow" };
+          case "selected":
+            return {color: "green"};
+          case "hall":
+            return {color: "red", show: false};
+        }
+      })()
       row.push(
-        <ActionIcon size={"xl"} key={nanoid()} onClick={() =>`${rowNames[i]}${j}`}  variant={"transparent"}>
-          <IconArmchair size="2.125rem" color={(i===8 || i===3) && (j ===10 || j===4) ? "red": undefined} />
+        <ActionIcon size={"xl"} key={nanoid()} onClick={() => {}}  variant={"transparent"} >
+          <IconArmchair size="2.125rem" color={color} style={show! === false ? {display: "none"} : undefined} />
         </ActionIcon>
       );
     }
