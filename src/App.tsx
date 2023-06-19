@@ -12,7 +12,10 @@ import Rooms from "./admin/Rooms";
 import { RecoilRoot } from "recoil";
 import Sala from "./screens/Sala";
 import { mockHistory } from "./util/mockData";
-
+import { Settings } from "./screens/Settings";
+import { CreateRoom } from "./admin/CreateRoom";
+import { CreateMovie } from "./admin/CreateMovie";
+import { CreateShow } from "./admin/CreateShow";
 
 const router = createBrowserRouter([
   {
@@ -44,7 +47,20 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Panel />,
-    children: [],
+    children: [
+    ],
+  },
+  {
+    path: "/admin/crear-salas",
+    element: <CreateRoom />,
+  },
+  {
+    path: "/admin/crear-peliculas",
+    element: <CreateMovie />,
+  },
+  {
+    path: "/admin/crear-programacion",
+    element: <CreateShow />,
   },
   {
     path: "/admin/rooms",

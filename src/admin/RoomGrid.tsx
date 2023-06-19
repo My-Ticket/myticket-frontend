@@ -1,7 +1,7 @@
 import { ActionIcon, Button, Center, SimpleGrid } from "@mantine/core";
 import { IconArmchair } from "@tabler/icons-react";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 interface RoomGridProps {
   height: number;
@@ -11,6 +11,9 @@ interface RoomGridProps {
 function RoomGrid({ height, width }: RoomGridProps) {
 
   const [grid, setGrid] = useState(makeGrid(height, width));
+  useEffect(() => {
+    setGrid(makeGrid(height, width));
+  },[height, width])
 
   return (
     <Center>
@@ -31,9 +34,9 @@ function makeGrid(h: number, w: number ) {
   const rowNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", 
                     "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", 
                     "V", "W", "X", "Y", "Z"];
-  let grid = [];
+  const grid = [];
   for (let i = 0; i < h; i++) {
-    let row = [];
+    const row = [];
     for (let j = 0; j < w; j++) {
       row.push(
         <ActionIcon size={"xl"} key={nanoid()} onClick={() =>`${rowNames[i]}${j}`}  variant={"transparent"}>

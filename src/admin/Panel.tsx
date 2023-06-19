@@ -1,6 +1,7 @@
 import {
   createStyles,
   Badge,
+  Button,
   Group,
   Title,
   Text,
@@ -9,25 +10,26 @@ import {
   Container,
   rem,
 } from "@mantine/core";
-import { IconGauge, IconUser, IconCookie } from "@tabler/icons-react";
+import { IconMovie, IconCalendarEvent, IconArmchair } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
 const mockdata = [
   {
     title: "Salas",
     description:"Crea, edita y elimina salas de cine",
-    icon: IconGauge,
+    icon: IconArmchair,
   },
   {
     title: "Peliculas",
     description:
       "Crea, edita y elimina peliculas",
-    icon: IconUser,
+    icon: IconMovie,
   },
   {
     title: "Programacion",
     description:
       "Programa las peliculas en las salas",
-    icon: IconCookie,
+    icon: IconCalendarEvent,
   },
 ];
 
@@ -77,6 +79,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function Panel() {
   const { classes, theme } = useStyles();
+  const navigate = useNavigate();
   const features = mockdata.map((feature) => (
     <Card
       key={feature.title}
@@ -92,6 +95,11 @@ export default function Panel() {
       <Text fz="sm" c="dimmed" mt="sm">
         {feature.description}
       </Text>
+      <Group position="apart" mt="xl">
+        <Button variant="subtle" size="xs" color={theme.fn.primaryColor()} onClick={() => navigate(`/admin/crear-${feature.title.toLowerCase()}`)} >
+          Crear
+        </Button>
+      </Group>
     </Card>
   ));
 
