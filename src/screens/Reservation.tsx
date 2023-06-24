@@ -76,7 +76,7 @@ export const Reservation = () => {
       </div>
       <div className='movie'>
         <div className= 'info'>
-          <h1>Rapidos y Furiosos X</h1>
+          <h1>{movie!.title}</h1>
           <p><strong>Titulo: </strong> {movie!.title}</p>
           <p><strong>Clasificación: </strong> {movie!.classification} </p>
           <p><strong>Reparto: </strong> {movie!.crew}</p>
