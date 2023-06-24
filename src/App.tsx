@@ -13,6 +13,7 @@ import Sala from "./screens/Sala";
 import { mockHistory } from "./util/mockData";
 import MoviesAdmin from "./screens/admin/MoviesAdmin";
 import { Subscription } from "./screens/Subscription";
+import { Settings } from "./screens/Settings";
 
 
 const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         path: "/suscripcion",
         element: <Subscription />
       },
+      {
+        path: "/configuracion",
+        element: <Settings />
+      }
     ],
   },
   {

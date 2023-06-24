@@ -1,8 +1,10 @@
 import { createStyles, Header, Menu, Group, Center, Burger, Container, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconChevronDown } from '@tabler/icons-react';
+import { IconChevronDown, IconLogout, IconSettings, IconStar } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import MyTicketLogo from "../assets/miticket.png"
+
+
 const useStyles = createStyles((theme) => ({
   header: {
     backgroundColor: theme.fn.variant({ variant: 'filled', color: 'yellow' }).background,
@@ -61,7 +63,16 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
   const navigate = useNavigate();
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
-      <Menu.Item color='yellow' key={item.link} onClick={() => navigate(item.link)}>{item.label} </Menu.Item>
+      <Menu.Item color='yellow' key={item.link} onClick={() => navigate(item.link)}
+        icon={item.label === "Cerrar sesión" ? 
+              <IconLogout size="1rem" stroke={1.5} /> :
+              item.label === "Configuración" ?
+              <IconSettings size="1rem" stroke={1.5} /> :
+              item.label === "Suscripción" ?
+              <IconStar size="1rem" stroke={1.5} /> :
+              null
+            }
+      >{item.label}</Menu.Item>
     ));
 
     if (menuItems) {
@@ -79,7 +90,9 @@ export function HeaderMenuColored({ links }: HeaderSearchProps) {
               </Center>
             </a>
           </Menu.Target>
-          <Menu.Dropdown>{menuItems}</Menu.Dropdown>
+          <Menu.Dropdown>
+            {menuItems}
+          </Menu.Dropdown>
         </Menu>
       );
     }
@@ -133,19 +146,19 @@ export const HeaderLinks = {
     },
     {
       "link": "#2",
-      "label": "Perfil",
+      "label": "Perfil",//{user.username},
       "links": [
         {
-          "link": "/1",
-          "label": "1"
+          "link": "/suscripcion",
+          "label": "Suscripción"
         },
         {
-          "link": "/2",
-          "label": "2"
+          "link": "/configuracion",
+          "label": "Configuración"
         },
         {
-          "link": "/3",
-          "label": "3"
+          "link": "/login",
+          "label": "Cerrar sesión"
         }
       ]
     }
