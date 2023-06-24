@@ -12,6 +12,7 @@ import { RecoilRoot } from "recoil";
 import Sala from "./screens/Sala";
 import { mockHistory } from "./util/mockData";
 import MoviesAdmin from "./screens/admin/MoviesAdmin";
+import { Subscription } from "./screens/Subscription";
 
 
 const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/historial",
         element: <TableScrollArea data={mockHistory} />,
+      },
+      {
+        path: "/suscripcion",
+        element: <Subscription />
       },
     ],
   },
