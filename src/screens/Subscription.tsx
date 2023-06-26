@@ -33,9 +33,9 @@ export function Subscription () {
   return (
     <div style={{marginTop: '5em'}}>
       <Center>
-        <h1>SUBSCRIPCIÓN</h1>
+        <h1>SUSCRIPCIÓN</h1>
       </Center>
-      <Text size='xl' ml='5rem' mt='sm'>Selecciona tu plan de subscripción preferido y disfruta de los beneficios que te ofrece.</Text>
+      <Text size='xl' ml='5rem' mt='sm'>Selecciona tu plan de suscripción preferido y disfruta de los beneficios que te ofrece.</Text>
       <div className={classes.container}>
         <div style={{flex: 1}}>
           <SubscriptionPlan title="Plan Básico"
