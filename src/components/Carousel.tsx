@@ -4,7 +4,6 @@ import { useRef } from 'react';
 
 export function Caro() {
   const autoplay = useRef(Autoplay({ delay: 3000}))
-  console.log('cualuqier cosa')
 
   return (
     <Carousel 
@@ -14,6 +13,7 @@ export function Caro() {
       draggable={false}
       plugins={[autoplay.current]}
       withControls={false}
+      loop={true}
     >
       <Carousel.Slide>
         <img
