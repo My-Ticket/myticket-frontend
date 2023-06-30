@@ -1,21 +1,7 @@
 import { useState } from 'react';
-import { createStyles, Container, Text, ScrollArea, rem, TextInput, Button } from '@mantine/core';
-
-const useStyles = createStyles((theme) => ({
-  container: {
-  }
-
-
-}));
-
-interface ConfigurationSectionProps {
-  username: string;
-  onUsernameChange: (newUsername: string) => void;
-  onPasswordChange: (newPassword: string) => void;
-}
+import { Container, Text, TextInput, Button } from '@mantine/core';
 
 export function Settings () {
-    const { classes } = useStyles()
     const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
   
@@ -37,7 +23,7 @@ export function Settings () {
   
     return (
       <div style={{margin: '5em'}}>
-        <Container className={classes.container}>
+        <Container >
           <h1>Configuración del perfil</h1>
           <Text>Cambiar los datos de identificación de tu cuenta</Text>
           <form onSubmit={handleSubmit} >

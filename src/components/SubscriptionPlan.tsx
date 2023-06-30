@@ -54,7 +54,7 @@ export function SubscriptionPlan({ title, description, price }: SubscriptionPlan
     try {
       const response = await sub(planId);
       // Manejar la respuesta del backend aquí
-      window.open(response!.url, '_blank');
+      // window.open(response!.url, '_blank'); // TODO: fix the response
       console.log(response);
     } catch (error) {
       // Manejar errores aquí

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { baseUrl } from "../constants";
 
+
+// TODO: Improve this code error handling
 export async function loginUser(credentials: {
   email: string;
   password: string;
@@ -16,8 +18,8 @@ export async function loginUser(credentials: {
   if (err) {
     return [err.response.data.error, undefined];
   } 
-  localStorage.setItem("token", res!.data.token);
-  return [undefined, res!.data.email];
+  localStorage.setItem("token", res?.data.token || "");
+  return [undefined, res?.data.email];
 }
 
 export const registerUser = async (credentials: {
@@ -25,7 +27,7 @@ export const registerUser = async (credentials: {
   email: string;
   password: string;
 }) => {
-  let err: any = undefined;
+  let err: any | undefined = undefined;
   const res = await axios
     .post(`${baseUrl}/auth/register`, credentials)
     .catch((error) => {
@@ -35,6 +37,6 @@ export const registerUser = async (credentials: {
   if (err) {
     return [err.response.data.error, undefined];
   }
-  localStorage.setItem("token", res!.data.token);
-  return [undefined, res!.data.email];
+  localStorage.setItem("token", res?.data.token || "");
+  return [undefined, res?.data.email || ""];
 };

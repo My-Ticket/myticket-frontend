@@ -5,6 +5,7 @@ import { billBoardMockData } from "../util/mockData"
 import { useSetRecoilState } from 'recoil';
 import { MoviesState } from '../state/reservationState';
 import { useNavigate } from 'react-router-dom';
+import {nanoid} from "nanoid";
 export function Billboard() {
   const setReserveMovie = useSetRecoilState(MoviesState)
   const navigate = useNavigate()
@@ -27,8 +28,8 @@ export function Billboard() {
             {
               billBoardMockData.map((movie) => {
                 return (
-                  <Grid.Col span={3}>
-                    <Moca key={movie.title} title={movie.title} link={movie.poster} sinopsis={movie.sinopsis}  onReserveClick ={() => {setReserveMovie(movie); navigate("/reserva")}}/>
+                  <Grid.Col key={nanoid()} span={3}>
+                    <Moca  title={movie.title} link={movie.poster} sinopsis={movie.sinopsis}  onReserveClick ={() => {setReserveMovie(movie); navigate("/reserva")}}/>
                   </Grid.Col>
                 )
               })

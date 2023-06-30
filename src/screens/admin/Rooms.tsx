@@ -1,4 +1,5 @@
-import RoomGrid from "./RoomGrid"
+import NewRoomGrid from "./NewRoomGrid.tsx"
+import RoomGrid from "./RoomGrid.tsx"
 
 function Rooms() {
   
@@ -7,7 +8,7 @@ function Rooms() {
       minHeight: "100%",
     }}>
 
-    <RoomGrid height={10} width={20} />  
+      <NewRoomGrid />     
     </div>
   )
 }

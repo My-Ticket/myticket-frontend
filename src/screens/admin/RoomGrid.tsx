@@ -1,8 +1,7 @@
-import { ActionIcon, Button, Center, SimpleGrid } from "@mantine/core";
+import { ActionIcon, Center } from "@mantine/core";
 import { IconArmchair } from "@tabler/icons-react";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
-import { Socket } from "socket.io-client";
 interface RoomGridProps {
   height: number;
   width: number;

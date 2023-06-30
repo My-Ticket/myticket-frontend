@@ -1,12 +1,12 @@
 import { Button, Grid, Input, Modal } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { AdminMovieComp } from "../../components/AdminMovieComp";
+import { AdminMovieComp } from "../../../components/AdminMovieComp.tsx";
 import { useEffect, useState } from "react";
-import { BillboardMovie } from "../../types";
-import getImageLink from "../../util/getImageLink";
+import { BillboardMovie } from "../../../types.ts";
+import getImageLink from "../../../util/getImageLink.ts";
 import { useDebouncedValue } from "@mantine/hooks";
 
-function MoviesAdmin() {
+function SearchMovies() {
   const [movies, setMovies] = useState<BillboardMovie[]>([]);
   const [search, setSearch] = useState<string>("");
   const [debouncedSearch] = useDebouncedValue(search, 200);
@@ -14,13 +14,13 @@ function MoviesAdmin() {
 
   useEffect(() => {
     if (debouncedSearch.trim() === "") {
-      fetch("http://localhost:5000/content/billboard/search/__null__")
+      fetch("http://localhost:5000/content/movies/search/__null__")
         .then((res) => res.json())
         .then((data) => {
           setMovies(data || []);
         });
     } else {
-      fetch(`http://localhost:5000/content/billboard/search/${debouncedSearch}`)
+      fetch(`http://localhost:5000/content/movies/search/${debouncedSearch}`)
         .then((res) => res.json())
         .then((data) => {
           setMovies(data || []);
@@ -29,8 +29,9 @@ function MoviesAdmin() {
   }, [debouncedSearch]);
 
   return (
-    <div>
-      <Modal opened={showModal} onClose={() => setShowModal(false)} centered>
+    <div
+    >
+      <Modal opened={showModal} onClose={() => setShowModal(false)} centered >
         <Modal.Title>Confirmar</Modal.Title>
         <Modal.Body>¿Está seguro que desea agregar esta película?</Modal.Body>
         <Button>
@@ -38,10 +39,6 @@ function MoviesAdmin() {
         </Button>
       </Modal>
       <div
-        style={{
-          marginTop: "2em",
-          marginInline: "10em",
-        }}
       >
         <Input
           value={search}
@@ -60,11 +57,11 @@ function MoviesAdmin() {
                 onClick={() => setShowModal(true)}
               />
             </Grid.Col>
-          ))}
+          )) || null}
         </Grid>
       </div>
     </div>
   );
 }
 
-export default MoviesAdmin;
+export default SearchMovies;

@@ -1,17 +1,17 @@
 import { Layout } from "./screens/Layout";
 import { Auth } from "./screens/Auth";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Billboard from "./screens/Cartelera";
+import Billboard from "./screens/Billboard.tsx";
 import { Reservation } from "./screens/Reservation";
 import Estreno from "./screens/Estrenos";
 import { NotFoundImage } from "./screens/NotFound";
-import Panel from "./admin/Panel";
+import Panel from "./screens/admin/Panel.tsx";
 import { TableScrollArea } from "./screens/History";
-import Rooms from "./admin/Rooms";
+import Rooms from "./screens/admin/Rooms.tsx";
 import { RecoilRoot } from "recoil";
 import Sala from "./screens/Sala";
 import { mockHistory } from "./util/mockData";
-import MoviesAdmin from "./screens/admin/MoviesAdmin";
+import MoviesList from "./screens/admin/movies/MoviesList.tsx";
 import { Subscription } from "./screens/Subscription";
 import { Settings } from "./screens/Settings";
 
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin/movies/",
-    element: <MoviesAdmin />,
+    element: <MoviesList />,
   },
   {
     path: "/login",
