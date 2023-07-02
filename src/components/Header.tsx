@@ -50,6 +50,7 @@ const useStyles = createStyles((theme) => ({
 
   linkLabel: {
     marginRight: rem(5),
+    fontSize: theme.fontSizes.sm
   },
 }));
 
