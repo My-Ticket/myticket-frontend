@@ -1,4 +1,5 @@
 import { Card, Text, createStyles, getStylesRef, rem } from '@mantine/core';
+import {ReactNode} from "react";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -55,9 +56,10 @@ interface ImageCardProps {
   image: string;
   title: string;
   onClick?: () => void;
+  children?: ReactNode
 }
 
-export function AdminMovieComp({ image, title, onClick }: ImageCardProps) {
+export function AdminMovieComp({ image, title, onClick, children }: ImageCardProps) {
   const { classes } = useStyles();
 
   return (
@@ -81,6 +83,7 @@ export function AdminMovieComp({ image, title, onClick }: ImageCardProps) {
 
         </div>
       </div>
+      {children}
     </Card>
   );
 }

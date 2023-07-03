@@ -4,3 +4,13 @@ export interface BillboardMovie {
     description: string;
     image: string;
 }
+
+export interface MovieDetails {
+    id: number;
+    title: string;
+    overview: string;
+    backdropPath: string;
+    rating: number;
+    trailer: string;
+    posterPath: string;
+}

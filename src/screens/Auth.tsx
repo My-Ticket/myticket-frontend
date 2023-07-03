@@ -107,12 +107,12 @@ export const Auth = ({ register }: { register: boolean }) => {
           });
           return;
         }
-        navigate("/cartelera");
+        navigate("/");
       }
       setConfirmPassword("");
       setPassword("");
       setEmail("");
-    } catch (e) {}
+    } catch (e) { /* empty */ }
     // TODO: Proper handle register error
     setError("Registration Failed");
   };

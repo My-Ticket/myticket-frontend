@@ -12,6 +12,8 @@ import { useRecoilValue } from 'recoil'
 import { MoviesState } from '../state/reservationState'
 
 export interface Movie{
+  id: string,
+  image: string,
   title: string,
   classification: string,
   director: string,
