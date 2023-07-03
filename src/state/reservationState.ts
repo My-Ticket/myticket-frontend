@@ -1,7 +1,7 @@
 import { atom } from 'recoil'
-import { Movie } from '../screens/Reservation'
+import { MovieDetails } from '../types'
 
-export const MoviesState = atom<Movie | undefined>({
+export const MoviesState = atom<MovieDetails | undefined>({
     default: undefined,
     key: 'movies_state'
 })

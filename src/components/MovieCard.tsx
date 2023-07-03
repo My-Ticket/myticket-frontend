@@ -38,7 +38,7 @@ export function Moca({title, link, sinopsis, presale = false, onReserveClick}: {
                     }
                 </Group>
 
-                <Text size="sm" color="dimmed">
+                <Text size="sm" color="dimmed" lineClamp={5}>
                     {sinopsis}
                 </Text>
 

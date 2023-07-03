@@ -3,7 +3,7 @@ import { Auth } from "./screens/Auth";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Billboard from "./screens/Billboard.tsx";
 import { Reservation } from "./screens/Reservation";
-import Estreno from "./screens/Estrenos";
+import Estreno from "./screens/Upcoming.tsx";
 import { NotFoundImage } from "./screens/NotFound";
 import Panel from "./screens/admin/Panel.tsx";
 import { TableScrollArea } from "./screens/History";

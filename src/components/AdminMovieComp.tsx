@@ -1,6 +1,6 @@
 import { Button, Card, Indicator, Overlay, Text, ThemeIcon, createStyles, getStylesRef, rem } from '@mantine/core';
 import { IconCheck } from '@tabler/icons-react';
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -59,11 +59,22 @@ interface ImageCardProps {
   onClick?: () => void;
   selectedMoviesSetter?: React.Dispatch<React.SetStateAction<string[]>>;
   movieId?: string
+  selectedMovies?: string[]
 }
 
-export function AdminMovieComp({ image, title, onClick, selectedMoviesSetter, movieId }: ImageCardProps) {
-  const [disabled, setDisabled] = useState(true);
+export function AdminMovieComp({ image, title, onClick, selectedMoviesSetter, movieId, selectedMovies }: ImageCardProps) {
   const { classes } = useStyles();
+  const [disabled, setDisabled] = useState(true);
+  useEffect(() => {
+    if (selectedMovies?.includes(movieId!)) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+    return () => {
+    }
+  }, [selectedMovies])
+  
   return (
     <Card
       p="lg"
@@ -76,17 +87,14 @@ export function AdminMovieComp({ image, title, onClick, selectedMoviesSetter, mo
         if (onClick) {
           onClick();
         }
-        if (selectedMoviesSetter && movieId) {
-          selectedMoviesSetter((prev) => {
-            if (prev.includes(movieId)) {
-              setDisabled(true);
-              return prev.filter((id) => id !== movieId);
-            } else {
-              setDisabled(false);
-              return [...prev, movieId];
-            }
-          });
-      }
+        if (selectedMoviesSetter) {
+          console.log(selectedMovies);
+          if (selectedMovies?.includes(movieId!)) {
+            selectedMoviesSetter((prev) => prev.filter((id) => id !== movieId));
+            return;
+          }
+          selectedMoviesSetter((prev) => [...prev, movieId!]);
+        }
       }}
     >
       <Indicator disabled={disabled} size={0} label={<ThemeIcon radius={"xl"} color='dark'>
