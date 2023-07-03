@@ -2,7 +2,6 @@ import {Button, Center, Grid, Group, Input, Loader, Modal, Stack, Text} from "@m
 import {IconSearch} from "@tabler/icons-react";
 import {AdminMovieComp} from "../../../components/AdminMovieComp.tsx";
 import {useState} from "react";
-// import { BillboardMovie } from "../../../types.ts";
 import getImageLink from "../../../util/getImageLink.ts";
 import {useDebouncedValue} from "@mantine/hooks";
 import useSWR from "swr";
@@ -11,7 +10,6 @@ import {Movie} from "../../Reservation.tsx";
 import {baseUrl} from "../../../constants.ts";
 
 function SearchMovies() {
-    // const [movies, setMovies] = useState<BillboardMovie[]>([]);
     const [search, setSearch] = useState<string>("");
     const [debouncedSearch] = useDebouncedValue(search, 200);
     const [showModal, setShowModal] = useState<boolean>(false);

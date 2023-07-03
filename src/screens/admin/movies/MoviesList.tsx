@@ -1,17 +1,17 @@
-import useSWR, {KeyedMutator} from "swr";
+import useSWR, { KeyedMutator } from "swr";
 import fetchWithAuth from "../../../util/fetchWithAuth.ts";
-import {ActionIcon, Affix, Button, Center, Loader, Modal, Overlay, rem, SimpleGrid} from "@mantine/core";
-import {IconCalendarCheck, IconCalendarUp, IconPlus} from "@tabler/icons-react";
+import { ActionIcon, Affix, Button, Center, Loader, Modal, Overlay, rem, SimpleGrid } from "@mantine/core";
+import { IconCalendarCheck, IconCalendarUp, IconPlus } from "@tabler/icons-react";
 import SearchMovies from "./SearchMovies.tsx";
-import {useDisclosure} from "@mantine/hooks";
-import {AdminMovieComp} from "../../../components/AdminMovieComp.tsx";
+import { useDisclosure } from "@mantine/hooks";
+import { AdminMovieComp } from "../../../components/AdminMovieComp.tsx";
 import getImageLink from "../../../util/getImageLink.ts";
-import {MovieDetails} from "../../../types.ts";
-import {baseUrl} from "../../../constants.ts";
-import {useState} from "react";
+import { MovieDetails } from "../../../types.ts";
+import { baseUrl } from "../../../constants.ts";
+import { useState } from "react";
 
-function Layout({mutate}: { mutate?: KeyedMutator<MovieDetails[]> }) {
-    const [opened, {open, close}] = useDisclosure(false);
+function Layout({ mutate, sendToBillboard, sendToUpcoming }: { mutate?: KeyedMutator<MovieDetails[]>, sendToBillboard?: Function, sendToUpcoming?: Function }) {
+    const [opened, { open, close }] = useDisclosure(false);
 
     return <div>
         <Modal opened={opened} onClose={async () => {
@@ -20,18 +20,22 @@ function Layout({mutate}: { mutate?: KeyedMutator<MovieDetails[]> }) {
             }
             close()
         }} centered size={"100%"}>
-            <SearchMovies/>
+            <SearchMovies />
         </Modal>
-        <Affix position={{bottom: rem(20), right: rem(20)}}>
+        <Affix position={{ bottom: rem(20), right: rem(20) }}>
             <Center>
                 <ActionIcon variant={"filled"} radius={"xl"} size={"xl"} color={"yellow"} mr={"xs"} onClick={open}>
-                    <IconPlus/>
+                    <IconPlus />
                 </ActionIcon>
-                <ActionIcon variant={"filled"} radius={"xl"} size={"xl"} color={"yellow"} mr={"xs"}>
-                    <IconCalendarUp/>
+                <ActionIcon variant={"filled"} radius={"xl"} size={"xl"} color={"yellow"} mr={"xs"} onClick={() => {
+                    if (sendToUpcoming) sendToUpcoming()
+                }}>
+                    <IconCalendarUp />
                 </ActionIcon>
-                <ActionIcon variant={"filled"} radius={"xl"} size={"xl"} color={"yellow"} mr={"xs"}>
-                    <IconCalendarCheck/>
+                <ActionIcon variant={"filled"} radius={"xl"} size={"xl"} color={"yellow"} mr={"xs"} onClick={() => {
+                    if (sendToBillboard) sendToBillboard()
+                }}>
+                    <IconCalendarCheck />
                 </ActionIcon>
             </Center>
         </Affix>
@@ -39,20 +43,20 @@ function Layout({mutate}: { mutate?: KeyedMutator<MovieDetails[]> }) {
 }
 
 function MoviesList() {
-    const {data, error, isLoading, mutate} = useSWR<MovieDetails[]>(`${baseUrl}/content/movies/`, fetchWithAuth);
-    const [visible, setVisible] = useState(false)
+    const { data, error, isLoading, mutate } = useSWR<MovieDetails[]>(`${baseUrl}/content/movies/`, fetchWithAuth);
+    const [selectedMovies, setSelectedMovies] = useState<string[]>([])
     if (error) return <div>error</div>
     if (isLoading) return <Center style={{
         display: "flex",
         justifyContent: "center",
         height: "100vh"
     }}>
-        <Loader variant={"bars"}/>
+        <Loader variant={"bars"} />
     </Center>
     if (data?.length === 0) return (
         <div>
 
-            <Layout mutate={mutate}/>
+            <Layout mutate={mutate} />
             <Center style={{
                 display: "flex",
                 justifyContent: "center",
@@ -75,26 +79,19 @@ function MoviesList() {
             <SimpleGrid cols={6}>
                 {data?.map((movie) => (
                     <div>
-
                         <AdminMovieComp
                             key={movie.id}
                             image={getImageLink(movie.posterPath)}
                             title={movie.title}
-                        >
+                            movieId={movie.id.toString()}
+                            selectedMoviesSetter={setSelectedMovies}
 
-                        {!visible && (
-                            <Overlay blur={15} center fixed={true}>
-                                <Button color="red" radius="xl" onClick={() => setVisible(true)}>
-                                    NSFW, click to reveal
-                                </Button>
-                            </Overlay>
-                        )}
-                        </AdminMovieComp>
+                        /> {/* PORQUE TAN QUIETO REY? */}
                     </div>
                 )) || null}
             </SimpleGrid>
         </Center>
-        <Layout mutate={mutate}/>
+        <Layout mutate={mutate} />
     </div>
 }
 
